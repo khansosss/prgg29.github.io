@@ -2,577 +2,391 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <title>Dashboard Pemantauan Lingkungan — South China Sea (Mobile Friendly)</title>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="./assets/icon/nm.png" type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="./dist/css/style.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Font Awesome CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <!-- Animate Style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-    <!-- AOS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-    <title>Dashboard Pemantauan Lingkungan South China Sea</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  
-<style>
-/* Sticky navbar */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-}
-
-/* Responsive hero text */
-@media (max-width: 768px) {
-    h1, .fw-bold {
-        font-size: 28px !important;
-        line-height: 1.3 !important;
-        word-break: break-word;
-        text-align: center;
-    }
-
-    .navbar-brand span {
-        font-size: 14px;
-        display: block;
-        text-align: left;
-        max-width: 180px;
-    }
-
-    .navbar-brand img {
-        width: 50px !important;
-        height: auto;
-    }
-
-    .hero {
-        padding: 40px 15px !important;
-        background-size: cover;
-        background-position: center;
-    }
-
-    p {
-        font-size: 16px !important;
-    }
-
-    iframe {
-        width: 100% !important;
-        height: 350px !important;
-    }
-
-    .btn {
-        width: 100%;
-        max-width: 220px;
-        margin: 5px auto;
-    }
-}
-</style>
-
-</head>
+    <style>
+      /* General resets and helpers */
+      :root{
+        --primary: #4169E1;
+        --accent: #dc3545;
+        --muted-bg: #f7fbfc;
+      }
+      body{
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        background-color: var(--muted-bg);
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+      }
+      /* Sticky navbar */
+      .navbar{
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+        backdrop-filter: blur(6px);
+      }
+      /* Brand wrapping and sizes */
+      .brand-wrap{
+        display:flex;
+        align-items:center;
+        gap:.6rem;
+      }
+      .brand-wrap img{
+        width:48px;
+        height:auto;
+        object-fit:contain;
+      }
+      .brand-text{
+        line-height:1;
+        font-weight:700;
+        font-size: .95rem;
+      }
+      /* Responsive headings using clamp */
+      h1.responsive-title{
+        font-weight:800;
+        margin:0 0 .5rem 0;
+        line-height:1.05;
+        font-size: clamp(1.4rem, 6vw, 2.6rem);
+      }
+      h2.responsive-sub{
+        font-weight:700;
+        font-size: clamp(1.05rem, 4vw, 1.6rem);
+      }
+      p.lead-sm{
+        font-size: clamp(.95rem, 3vw, 1.05rem);
+      }
+      /* Hero tweaks */
+      .hero {
+        background-position:center;
+        background-size:cover;
+        color:#000;
+      }
+      .hero-overlay{
+        background: linear-gradient(120deg, rgba(255,255,255,0.75), rgba(255,255,255,0.5));
+        padding:2.5rem 1rem;
+        border-radius:.75rem;
+      }
+      /* Make images responsive and cropped nicely */
+      .card-img-top{
+        object-fit:cover;
+        height:200px;
+      }
+      /* Footer */
+      .site-footer{
+        background:#82C0C9;
+      }
+      /* Make iframe responsive via Bootstrap ratio */
+      .map-card .ratio{
+        border-radius:.5rem;
+        overflow:hidden;
+      }
+      /* Navbar toggler icon visible on dark/bgc */
+      .navbar-light .navbar-toggler-icon{
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+      }
+      /* Better spacing on small screen */
+      .section-pad{ padding: 2.0rem 0; }
+      /* Ensure links wrap */
+      .nav-link{ white-space:normal; }
+      /* Fix small buttons stacking */
+      @media (max-width:576px){
+        .hero-buttons .btn{ width:100%; margin-bottom:.5rem; }
+        .card-img-top{ height:160px; }
+      }
+    </style>
+  </head>
   <body id="home">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg py-3 animate__animated animate__fadeInDown" style="background-color: #82C0C9;">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="./assets/icon/UGM-removebg-preview.png" alt="Logo" width="140" height="50" class="d-inline-block align-text-top rounded" />
-          <span class="fw-bold text-black">Dashboard Pemantauan Lingkungan South China Sea</span>
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+          <div class="brand-wrap">
+            <img src="./assets/icon/UGM-removebg-preview.png" alt="Logo">
+            <div class="brand-text">Dashboard Pemantauan Lingkungan<br/><small class="text-muted">South China Sea</small></div>
+          </div>
         </a>
-        <button class="navbar-toggler bg-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto d-flex gap-3 text-center pt-lg-0 pt-4">
-            <li class="nav-item">
-              <a class="nav-link text-black" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-black" href="#kenaikanmukaairlaut">Kenaikan Muka Air Laut</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-black" href="#suhupermukaanlaut">Suhu Permukaan Laut</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-black" href="#tumpahanminyak">Tumpahan Minyak</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-black" href="#terumbukarang">Terumbu Karang</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-black" href="#mangrove">Mangrove</a>
-            </li>
-            
+
+        <div class="collapse navbar-collapse" id="navCollapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center text-center">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#kenaikanmukaairlaut">Kenaikan Muka Air Laut</a></li>
+            <li class="nav-item"><a class="nav-link" href="#suhupermukaanlaut">Suhu Permukaan Laut</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tumpahanminyak">Tumpahan Minyak</a></li>
+            <li class="nav-item"><a class="nav-link" href="#terumbukarang">Terumbu Karang</a></li>
+            <li class="nav-item"><a class="nav-link" href="#mangrove">Mangrove</a></li>
           </ul>
         </div>
       </div>
     </nav>
-    <!-- Navbar -->
 
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden"
-  style="
-    background-image: url('assets/images/Cover Laut china.png');
-    background-size: cover;
-    background-position: center;
-    height: 500px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-     
-  <div class="container">
-    <div class="hero-box">
-      <h1 class="fw-bold mb-3"
-        style="
-          font-size: 3.5rem;   /* perbesar judul */
-          line-height: 1.3;    /* biar rapi */
-          color: #000;         /* pastikan terbaca */
-        ">
-        Dashboard <br />
-        Pemantauan Lingkungan <br /><span class="text-danger">South China Sea</span> <br />
-      </h1>
-    </div>
-  </div>
-
-</section>
-<!-- End Hero -->
-
-    <!-- Hero -->
-    <section class="hero overflow-hidden mt-3" style="background-image: url('assets/images/DESAIN\ PRGG.png')">
+    <!-- HERO (single, clean, mobile-first) -->
+    <header class="hero py-4" style="background-image: url('assets/images/Cover Laut china.png');">
       <div class="container">
-        <div class="hero-box d-flex align-items-center justify-content-between flex-md-row flex-column gap-md-0 gap-5">
-          <div class="box animate__animated animate__fadeInLeft animate__delay-1s">
-            <h1 class="fw-bold mb-3 mt-3">
-               <span class="text-danger">Laut Cina Selatan (South China Sea)</span> <br />
-            </h1>
-            <p class="lh-lg mb-4">Laut Cina Selatan yang merupakan kawasan maritim strategis dengan luas sekitar 3,5 juta km² yang dikelilingi oleh Cina, Taiwan, Vietnam, Filipina, Malaysia, Brunei Darussalam, dan Indonesia. Wilayah ini dikenal kaya akan sumber daya alam, seperti minyak, gas bumi, serta potensi perikanan yang besar. Namun, Laut Cina Selatan juga merupakan salah satu kawasan dengan sengketa teritorial paling kompleks di dunia, karena terdapat klaim tumpang tindih dari beberapa negara, termasuk Cina, Vietnam, Filipina, Malaysia, Brunei, dan Taiwan. Kondisi ini menimbulkan tantangan dalam pengelolaan lingkungan, karena keterbatasan akses, konflik kepentingan, serta kurangnya transparansi data. </p>
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2 order-md-1">
+            <div class="hero-overlay">
+              <h1 class="responsive-title">Dashboard <br/> Pemantauan Lingkungan <span class="text-danger">South China Sea</span></h1>
+              <p class="lead-sm text-muted">Platform visualisasi data pemantauan lingkungan wilayah Laut Cina Selatan — memantau kenaikan muka air, suhu permukaan laut, tumpahan minyak, terumbu karang, dan mangrove dengan peta &amp; grafik interaktif.</p>
+              <div class="d-flex gap-2 hero-buttons flex-column flex-sm-row mt-3">
+                <a href="#about" class="btn btn-danger">Tentang Kami</a>
+                <a href="#projects" class="btn btn-outline-danger">Our Projects</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 order-1 order-md-2 mb-3 mb-md-0">
+            <!-- responsive map inside hero using Bootstrap ratio -->
+            <div class="map-card shadow-sm">
+              <div class="ratio ratio-16x9">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19007828.27104068!2d114.13440317813173!3d12.193096030952129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317e79d4f0390dcf%3A0xd347a86ae63c44c9!2sSouth%20China%20Sea!5e1!3m2!1sen!2sid!4v1764733558701!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION: Kenaikan Muka Air Laut -->
+    <section id="kenaikanmukaairlaut" class="section-pad">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="responsive-sub">Kenaikan Muka Air Laut</h2>
+          <p class="lead-sm text-muted">Kenaikan muka air laut (Sea Level Rise) merupakan fenomena naiknya air laut yang umumnya disebabkan karena kenaikan suhu akibat perubahan iklim...</p>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+              <img src="./assets/images/pesisir tenggelam.jpg" class="card-img-top" alt="Tenggelamnya Kawasan Pesisir">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Tenggelamnya Kawasan Pesisir</h3>
+                <p class="mb-0">Kenaikan muka air laut disertai penurunan muka tanah menyebabkan banjir rob yang semakin sering dan tinggi...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+              <img src="./assets/images/abrasi.jpg" class="card-img-top" alt="Abrasi Pantai">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Abrasi Pantai</h3>
+                <p class="mb-0">Gelombang laut yang makin kuat dan kenaikan permukaan air laut mengikis garis pantai...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full-width embedded app (made responsive with ratio) -->
+        <div class="card mb-4 shadow-sm">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://prgg29.projects.earthengine.app/view/slr" title="SLR Viewer" style="border:0;" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div class="row gy-3">
+          <div class="col-12 col-md-4">
+            <div class="p-3 shadow-sm rounded" style="background:var(--primary); color:white;">
+              <h4 class="h6">Terjadi Kenaikan Luas Area Inundasi</h4>
+              <p class="small mb-0">Proyeksi menunjukkan peningkatan area terendam setiap tahunnya.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="p-3 shadow-sm rounded" style="background:var(--primary); color:white;">
+              <h4 class="h6">Cina &amp; Vietnam Area Inundasi Terbesar</h4>
+              <p class="small mb-0">Berdasarkan luasan total wilayah, Cina dan Vietnam diproyeksikan memiliki area dataran rendah terendam paling besar.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="p-3 shadow-sm rounded" style="background:var(--primary); color:white;">
+              <h4 class="h6">Taiwan, Cina, Vietnam Kehilangan Lahan</h4>
+              <p class="small mb-0">Prediksi kehilangan lahan tertinggi relatif terhadap total area pesisir mereka.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repeat pattern for other major sections (SST, Oil Spill, Coral, Mangrove) -->
+    <!-- SECTION: Suhu Permukaan Laut -->
+    <section id="suhupermukaanlaut" class="section-pad" style="background-image:url('assets/images/4.png'); background-size:cover; background-position:center;">
+      <div class="container">
+        <div class="text-center text-white mb-4">
+          <h2 class="responsive-sub text-white">Suhu Permukaan Laut</h2>
+          <p class="lead-sm text-white-50">Data suhu permukaan laut dapat digunakan untuk prediksi cuaca, identifikasi pola cuaca (seperti El Nino dan La Nina)...</p>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+              <img src="./assets/images/pemutihan terumbu.jpg" class="card-img-top" alt="Pemutihan Terumbu">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Pemutihan Terumbu Karang</h3>
+                <p class="mb-0">Ketika suhu melewati ambang toleransi, alga simbion yang memberi warna dan energi bagi karang akan keluar...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+              <img src="./assets/images/gelombang panas.jpg" class="card-img-top" alt="Gelombang Panas Laut">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Gelombang Panas Laut</h3>
+                <p class="mb-0">Kenaikan suhu laut dapat memicu fenomena gelombang panas laut yang berlangsung selama hari hingga minggu.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://prgg29.projects.earthengine.app/view/sst" title="SST Viewer" style="border:0;" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div class="row gy-3">
+          <div class="col-12 col-md-4">
+            <div class="p-3 shadow-sm rounded" style="background:var(--primary); color:white;">
+              <h4 class="h6">Data 2020 - 2024</h4>
+              <p class="small mb-0">Data near real-time dari 2020 hingga 2024 tersedia untuk analisis pola pemanasan regional.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="p-3 shadow-sm rounded" style="background:var(--primary); color:white;">
+              <h4 class="h6">Dekat Khatulistiwa Suhu Lebih Tinggi</h4>
+              <p class="small mb-0">Wilayah dekat garis khatulistiwa cenderung memiliki suhu air laut tinggi sepanjang tahun.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="p-3 shadow-sm rounded" style="background:var(--primary); color:white;">
+              <h4 class="h6">Perubahan Tahunan Tidak Signifikan</h4>
+              <p class="small mb-0">Analisis rata-rata tahunan menunjukkan perubahan suhu masih berada dalam batas variabilitas normal (2020-2024).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Oil Spill -->
+    <section id="tumpahanminyak" class="section-pad">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="responsive-sub">Tumpahan Minyak</h2>
+          <p class="lead-sm text-muted">Tumpahan minyak di laut adalah peristiwa masuknya minyak mentah atau produk turunannya ke perairan laut...</p>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+              <img src="./assets/images/pemcemaran minyak.jpeg" class="card-img-top" alt="Pencemaran">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Pencemaran Air Laut</h3>
+                <p class="mb-0">Tumpahan minyak membentuk lapisan tipis di permukaan yang menghalangi pertukaran oksigen...</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+              <img src="./assets/images/ikan mati.jpg" class="card-img-top" alt="Biota Mati">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Matinya Biota Laut</h3>
+                <p class="mb-0">Kematian biota laut terjadi secara massal karena minyak bersifat toksik...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://prgg29.projects.earthengine.app/view/oilspill" title="Oil Spill Viewer" style="border:0;" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Coral Reef -->
+    <section id="terumbukarang" class="section-pad" style="background-image:url('assets/images/2.png'); background-size:cover; background-position:center;">
+      <div class="container text-white">
+        <div class="text-center mb-4">
+          <h2 class="responsive-sub text-white">Terumbu Karang</h2>
+          <p class="lead-sm text-white-50">Terumbu karang di wilayah ini termasuk di Kepulauan Spratly dan Paracel—rumah bagi ribuan spesies.</p>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://prgg29.projects.earthengine.app/view/coralreef" title="Coral Reef Viewer" style="border:0;" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Mangrove -->
+    <section id="mangrove" class="section-pad">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="responsive-sub">Mangrove</h2>
+          <p class="lead-sm text-muted">Platform ini menyajikan informasi mengenai perubahan luas area mangrove melalui visualisasi citra satelit dan analisis temporal.</p>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://prgg29.projects.earthengine.app/view/mangrove" title="Mangrove Viewer" style="border:0;" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="py-4 text-center">
+      <div class="container">
+        <div class="p-4 bg-white shadow-sm rounded">
+          <h3 class="h5 fw-bold">Risiko perubahan iklim bukan lagi perkiraan — ini kenyataan.</h3>
+          <p class="mb-3">Kami menawarkan jasa pembuatan analisis pemantauan lingkungan sesuai permintaan untuk membantu organisasi Anda merencanakan mitigasi risiko dan keberlanjutan.</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdVkHMy7P1iiiiAyNLUcqgdcHKH5x-t7bKP2LQGPQR3XoceEw/viewform?fbzx=-6961219111162297480" class="btn btn-danger" target="_blank">ORDER HERE</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer site-footer mt-3 py-4">
+      <div class="container">
+        <div class="row gy-3">
+          <div class="col-12 col-md-4 d-flex align-items-center gap-3">
+            <img src="./assets/icon/UGM-removebg-preview.png" alt="Logo" style="width:100px;height:auto;">
             <div>
-              <a href="#about" class="btn btn-danger">Tetang Kami</a>
-              <a href="#projects" class="btn btn-outline-danger">Our Projects</a>
+              <h5 class="mb-0">Dashboard Pemantauan Lingkungan</h5>
+              <small class="text-muted">PRGG 2025 — KELOMPOK 29</small>
             </div>
           </div>
-          <div class="box animate__animated animate__fadeInRight animate__delay-1s">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19007828.27104068!2d114.13440317813173!3d12.193096030952129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317e79d4f0390dcf%3A0xd347a86ae63c44c9!2sSouth%20China%20Sea!5e1!3m2!1sen!2sid!4v1764733558701!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="col-12 col-md-3">
+            <h6 class="fw-bold">Menu</h6>
+            <ul class="list-unstyled mb-0">
+              <li><a href="#home" class="text-dark text-decoration-none">Home</a></li>
+              <li><a href="#kenaikanmukaairlaut" class="text-dark text-decoration-none">Kenaikan Muka Air Laut</a></li>
+              <li><a href="#suhupermukaanlaut" class="text-dark text-decoration-none">Suhu Permukaan Laut</a></li>
+            </ul>
           </div>
-        </div>
-      </div>
-    </section>
-    <!-- Hero -->
-
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden mt-3"
-  style="
-    background-image: url('assets/images/bendera.png');
-    background-size: cover;
-    background-position: center;
-    height: 300px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-  </div>
-
-</section>
-<!-- End Hero -->
-
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden mt-3"
-class="kenaikanmukaairlaut" id="kenaikanmukaairlaut"
-  style="
-    background-image: url('assets/images/3.png');
-    background-size: cover;
-    background-position: center;
-    height: 600px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-  </div>
-
-</section>
-<!-- End Hero -->
-
-<!-- Kenaikan Muka Air Laut -->
-    <section style="background-image: url('assets/images/DESAIN\ PRGG.png')">
-      <div class="container">
-        <div class="about-box text-center">
-          <h1 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Kenaikan Muka Air Laut</h1>
-          <p class="lh-lg mb-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-            Kenaikan muka air laut (Sea Level Rise) merupakan fenomena naiknya air laut yang umumnya disebabkan karena kenaikan suhu akibat perubahan iklim. Kenaikan suhu membuat air laut memuai sehingga ketinggian muka air laut akan meningkat setiap tahunnya. Selain itu, pencairan es di daratan seperti gletser dan/atau lapisan es juga berpengaruh terhadap kenaikan muka air laut.
-          </p>
-          <h2 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Dampak Kenaikan Muka Air Laut</h2>
-          <div class="row justify-content-center pt-4 gap-4">
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/pesisir tenggelam.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Tenggelamnya Kawasan Pesisir</h4>
-              <p>Kenaikan muka air laut disertai penurunan muka tanah menyebabkan banjir rob yang semakin sering dan tinggi, sehingga kawasan pesisir berisiko tenggelam dan merusak rumah penduduk.</p>
-            </div>
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/abrasi.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Abrasi Pantai</h4>
-              <p>Gelombang laut yang makin kuat dan kenaikan permukaan air laut mengikis garis pantai, menyebabkan abrasi yang menggerus lahan, merusak infrastruktur, dan mengancam aktivitas ekonomi masyarakat pesisir.</p>
-            </div>
-          <iframe 
-    src="https://prgg29.projects.earthengine.app/view/slr"
-    width="100%"
-    height="700"
-    style="border:none;">
-</iframe>
-          <div class="box pt-4 d-flex gap-3 flex-md-row flex-column">
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500" style="background-color: #4169E1;">
-              <i class="fa-solid fa-folder-tree mb-3"></i>
-              <h4 class="mb-3 fw-bold">Terjadi Kenaikan Luas Area Indundasi Setiap Tahunnya</h4>
-              <p class="lh-lg">Proyeksi menunjukkan peningkatan area terendam (inundasi) yang konsisten di seluruh negara pesisir Laut Cina Selatan, memaksa pemerintah dan masyarakat untuk segera merancang strategi adaptasi dan perlindungan terhadap aset vital.</p>
-            </div>
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700" style="background-color: #4169E1;">
-              <i class="fa-solid fa-user-tie mb-3"></i>
-              <h4 class="mb-3 fw-bold">Cina dan Vietnam Memiliki Area Inundasi Paling Luas</h4>
-              <p class="lh-lg">Berdasarkan luasan total wilayah, Cina dan Vietnam diproyeksikan memiliki area dataran rendah terendam paling besar. Kondisi ini memerlukan investasi besar dalam infrastruktur pertahanan pantai, tanggul, dan program relokasi penduduk.</p>
-            </div>
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900" style="background-color: #4169E1;">
-              <i class="fa-solid fa-star mb-3"></i>
-              <h4 class="mb-3 fw-bold">Taiwan, Cina, dan Vietnam Kehilangan Lahan Paling Luas</h4>
-              <p class="lh-lg">Meskipun Indonesia dan Filipina juga terdampak, Taiwan, Cina, dan Vietnam diprediksi menghadapi persentase kehilangan lahan (land loss) tertinggi relatif terhadap total area pesisir mereka pada proyeksi hingga tahun 2030.</p>
-            </div>
-        </div>
-      </div>
-    </section>
-    <!-- Kenaikan Muka Air Laut -->
-
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden mt-3"
-class="suhupermukaanlaut" id="suhupermukaanlaut"
-  style="
-    background-image: url('assets/images/4.png');
-    background-size: cover;
-    background-position: center;
-    height: 600px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-  </div>
-
-</section>
-<!-- End Hero -->
-
-
-<!-- Suhu Permukaan Laut -->
-    <section style="background-image: url('assets/images/DESAIN\ PRGG.png')">
-      <div class="container">
-        <div class="about-box text-center">
-          <h1 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Suhu Permukaan Laut</h1>
-          <p class="lh-lg mb-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-            Suhu permukaan laut merupakan suhu yang diukur dari beberapa milimeter di atas permukaan laut. Pengamatan suhu permukaan laut dapat dilakukan menggunakan teknologi berbasis satelit.
-Data suhu permukaan laut dapat digunakan untuk prediksi cuaca, identifikasi pola cuaca (seperti El Nino dan La Nina), serta menjadi dasar analisa untuk pola perubahan iklim. </p>
-          <h2 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Dampak Kenaikan Suhu Permukaan Laut</h2>
-          <div class="row justify-content-center pt-4 gap-4">
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/pemutihan terumbu.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Pemutihan Terumbu Karang</h4>
-              <p>Ketika suhu melewati ambang toleransi, alga simbion yang memberi warna dan energi bagi karang akan keluar, sehingga karang memutih dan rentan mati. Pemutihan yang terjadi secara terus-menerus dapat mengakibatkan kerusakan ekosistem laut secara luas.</p>
-            </div>
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/gelombang panas.jpg" alt="Projects Image" width="100%" height="300px" />
-              <h4 class="fw-bold pt-4">Gelombang Panas Laut</h4>
-              <p>Kenaikan suhu laut dapat memicu fenomena gelombang panas laut yang berlangsung selama berhari-hari hingga berminggu-minggu. Kondisi ini memberi tekanan besar pada organisme laut, mengganggu rantai makanan, dan mengubah pola migrasi biota laut.</p>
-            </div>
-          <iframe 
-    src="https://prgg29.projects.earthengine.app/view/sst"
-    width="100%"
-    height="700"
-    style="border:none;">
-</iframe>
-          <div class="box pt-4 d-flex gap-3 flex-md-row flex-column">
-            <div class="service p-4 shadow  text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500" style="background-color: #4169E1;">
-              <i class="fa-solid fa-folder-tree mb-3"></i>
-              <h4 class="mb-3 fw-bold">Tersedia Data Suhu Permukaan Laut dari 2020 - 2024</h4>
-              <p class="lh-lg">Data suhu permukaan laut near real-time dari 2020 hingga 2024 tersedia untuk analisis pola pemanasan regional. Data ini sangat penting untuk prediksi cuaca, pemodelan iklim, dan studi dampak kenaikan suhu pada biota laut.</p>
-            </div>
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700" style="background-color: #4169E1;">
-              <i class="fa-solid fa-user-tie mb-3"></i>
-              <h4 class="mb-3 fw-bold">Semakin Dekat Katulistiwa, Suhu Semakin Tinggi</h4>
-              <p class="lh-lg">Hasil pemantauan menunjukkan korelasi yang jelas antara lokasi geografis dan Suhu Permukaan Laut. Wilayah yang berada di sekitar garis khatulistiwa cenderung memiliki suhu air laut yang stabil tinggi sepanjang tahun.</p>
-            </div>
-            <div class="service p-4 shadow  text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900" style="background-color: #4169E1;">
-              <i class="fa-solid fa-star mb-3"></i>
-              <h4 class="mb-3 fw-bold">Perubahan Suhu Permukaan Laut Tidak Signifikan Tiap Tahunnya</h4>
-              <p class="lh-lg">Meskipun terjadi fluktuasi bulanan (seperti yang terlihat pada grafik), analisis rata-rata tahunan menunjukkan bahwa perubahan suhu air laut dari tahun ke tahun masih berada dalam batas variabilitas normal pada periode 2020-2024.</p>
-            </div>
-        </div>
-      </div>
-    </section>
-    <!-- Kenaikan Muka Air Laut -->
-
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden mt-3"
-class="tumpahanminyak" id="tumpahanminyak"
-  style="
-    background-image: url('assets/images/5.png');
-    background-size: cover;
-    background-position: center;
-    height: 500px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-  </div>
-</section>
-<!-- End Hero -->
-
-<!-- Tumpahan Minyak -->
-    <section  style="background-image: url('assets/images/DESAIN\ PRGG.png')">
-      <div class="container">
-        <div class="about-box text-center">
-          <h1 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Tumpahan Minyak</h1>
-          <p class="lh-lg mb-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-            Tumpahan minyak di laut adalah peristiwa masuknya minyak mentah atau produk turunannya ke perairan laut akibat kecelakaan kapal tanker, kebocoran pipa bawah laut, atau kegiatan pengeboran minyak lepas pantai. Minyak yang tumpah akan membentuk lapisan tipis di permukaan laut yang dapat menyebar luas, menutupi area perairan, dan mengganggu ekosistem laut.
-          </p>
-          <h2 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Dampak Tumpahan Minyak</h2>
-           <div class="row justify-content-center pt-4 gap-4">
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/pemcemaran minyak.jpeg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Pencemaran Air Laut</h4>
-              <p>Tumpahan minyak membentuk lapisan tebal yang menghalangi pertukaran oksigen antara udara dan air. Lapisan ini sangat berbahaya karena bersifat toksik sehingga dapat merusak ekosistem laut.</p>
-            </div>
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/ikan mati.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Matinya Biota Laut</h4>
-              <p>Kematian biota laut terjadi secara massal karena minyak bersifat sangat beracun dan merusak fungsi biologis vital yang dibutuhkan untuk bertahan hidup di ekosistem perairan.</p>
-              <div>
-              </div>
-            </div>
-          <iframe 
-    src="https://prgg29.projects.earthengine.app/view/oilspill"
-    width="100%"
-    height="700"
-    style="border:none;">
-</iframe>
-          <div class="box pt-4 d-flex gap-3 flex-md-row flex-column">
-            <div class="service p-4 shadow  text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500" style="background-color: #4169E1;">
-              <i class="fa-solid fa-folder-tree mb-3"></i>
-              <h4 class="mb-3 fw-bold">Area Terdeteksi Oil Spill Sekitar 5490 km2</h4>
-              <p class="lh-lg">Pemrosesan citra satelit mengidentifikasi total luas area laut yang tercemar minyak (oil slick) mencapai 5.490 km². Area ini tersebar dan memerlukan pemantauan intensif untuk menilai dampak lingkungan dan menentukan lokasi pembersihan prioritas.</p>
-            </div>
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700" style="background-color: #4169E1;">
-              <i class="fa-solid fa-user-tie mb-3"></i>
-              <h4 class="mb-3 fw-bold">Area Terdeteksi Oil Spill Terluas Berada di Perairan Sekitar Kepulauan Riau</h4>
-              <p class="lh-lg">Hasil deteksi menunjukkan konsentrasi tumpahan minyak terbesar berada di sekitar perairan Kepulauan Riau. Hal ini menuntut kewaspadaan tinggi bagi otoritas setempat dan industri pelayaran yang beroperasi di Selat Malaka.</p>
-            </div>
-            <div class="service p-4 shadow  text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900" style="background-color: #4169E1;">
-              <i class="fa-solid fa-star mb-3"></i>
-              <h4 class="mb-3 fw-bold">Deteksi Hanya Pada Area Pesisir Karena Faktor Keterbatasan Data Sentinel-1</h4>
-              <p class="lh-lg">Deteksi tumpahan minyak hanya pada area yang dekat dengan daratan. Hal tersebut terjadi karena keterbatasan ketersediaan data Sentinel-1 pada area laut lepas. Oleh karena itu, area laut lepas tidak terdeteksi tumpahan minyaknya.</p>
-            </div>
-        </div>
-      </div>
-    </section>
-    <!-- tumpahan Minyak -->
-
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden mt-3"
-class="terumbukarang" id="terumbukarang"
-  style="
-    background-image: url('assets/images/2.png');
-    background-size: cover;
-    background-position: center;
-    height: 500px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-  </div>
-
-</section>
-<!-- End Hero -->
-
-<!-- Terumbu -->
-    <section  style="background-image: url('assets/images/DESAIN\ PRGG.png')">
-      <div class="container">
-        <div class="about-box text-center">
-          <h1 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Terumbu Karang</h1>
-          <p class="lh-lg mb-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-            Laut Cina Selatan (LCS) bukan hanya wilayah strategis secara geopolitik, tetapi juga merupakan salah satu pusat keanekaragaman hayati laut terkaya di dunia. Sebagian wilayah ini masuk dalam kawasan "Coral Triangle" atau Segitiga Karang Dunia.
-Terumbu karang di wilayah ini termasuk di Kepulauan Spratly dan Paracel berfungsi sebagai rumah bagi ribuan spesies ikan, moluska, dan biota laut lainnya. Struktur karang ini adalah ekosistem purba yang telah tumbuh selama ribuan tahun, menyediakan jejaring makanan yang vital bagi perikanan di Asia Tenggara.</p>
-          <h2 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Dampak Kerusakan Terumbu Karang</h2>
-           <div class="row justify-content-center pt-4 gap-4">
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/perikanan.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Runtuhnya Stok Perikanan</h4>
-              <p>Rusaknya terumbu karang menghilangkan tempat ikan bertelur dan berlindung, menyebabkan penurunan drastis pada populasi ikan. 
-</p>
-            </div>
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/biodiversiras.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Penurunan Biodiversitas</h4>
-              <p>Kehancuran habitat ini menyebabkan hilangnya rantai makanan, memaksa spesies laut untuk bermigrasi atau punah secara lokal, meninggalkan dasar laut yang tandus dan tidak produktif. 
-</p>
-            </div>
-          <iframe 
-    src="https://prgg29.projects.earthengine.app/view/coralreef"
-    width="100%"
-    height="700"
-    style="border:none;">
-</iframe>
-          <div class="box pt-4 d-flex gap-3 flex-md-row flex-column">
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500" style="background-color: #4169E1;">
-              <i class="fa-solid fa-folder-tree mb-3"></i>
-              <h4 class="mb-3 fw-bold">Hasil Deteksi Terumbu Karang Terbagi Menjadi 4 Kelas</h4>
-              <p class="lh-lg">Berdasarkan hasil klasifikasi citra satelit, kondisi terumbu karang di area studi dibagi menjadi empat kelas utama: Karang Sehat, Rusak Sedang, Rusak Parah, dan Non-karang. Klasifikasi ini mendukung pemantauan kesehatan ekosistem.</p>
-            </div>
-            <div class="service p-4 shadow  text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700" style="background-color: #4169E1;">
-              <i class="fa-solid fa-user-tie mb-3"></i>
-              <h4 class="mb-3 fw-bold">Luas Terumbu Karang yang Rusak Cukup Besar</h4>
-              <p class="lh-lg">Total luasan terumbu karang yang terklasifikasi sebagai Rusak Sedang dan Rusak Parah mencapai 192.361,84 km². Angka ini menyoroti perlunya intervensi konservasi segera untuk memulihkan ekosistem yang terancam.</p>
-            </div>
-        </div>
-      </div>
-    </section>
-    <!-- Terumbu -->
-
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden mt-3"
-class="mangrove" id="mangrove"
-  style="
-    background-image: url('assets/images/1.png');
-    background-size: cover;
-    background-position: center;
-    height: 500px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-  </div>
-
-</section>
-<!-- End Hero -->
-
-
-<!-- Mangrove -->
-    <section  style="background-image: url('assets/images/DESAIN\ PRGG.png')">
-      <div class="container">
-        <div class="about-box text-center">
-          <h1 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Mangrove</h1>
-          <p class="lh-lg mb-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-            Dashboard ini menyajikan informasi mengenai peristiwa perubahan luas area mangrove di wilayah Laut China Selatan melalui visualisasi berbasis citra satelit dan analisis temporal. Melalui grafik tren, peta perubahan, dan indikator luas area, dashboard ini memungkinkan pengguna mengamati pergeseran signifikan yang menunjukkan kejadian seperti abrasi, deforestasi mangrove, ekspansi tambak, hingga proses regenerasi alami. Sehingga, dashboard ini berfungsi sebagai sarana monitoring yang membantu memahami peristiwa-peristiwa penting yang memengaruhi keberlanjutan mangrove di kawasan strategis Laut China Selatan.
-          </p>
-          <h2 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Dampak Tidak Adanya Mangrove</h2>
-           <div class="row justify-content-center pt-4 gap-4">
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/abrasi pantai.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Abrasi</h4>
-              <p>Mangrove memecah energi gelombang, menahan sedimen, dan mengurangi abrasi. Hilangnya mangrove membuat garis pantai lebih rentan terhadap badai, ombak tinggi, dan intrusi air laut. 
-</p>           
-            </div>
-            <div class="col col-md-5 col-12 shadow p-3 rounded" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
-              <img src="./assets/images/co2.jpg" alt="Projects Image" width="100%" height="300px"/>
-              <h4 class="fw-bold pt-4">Emisi CO2</h4>
-              <p>Mangrove menyimpan karbon di biomassa dan terutama di tanahnya (blue carbon). Konversi/deforestasi menyebabkan pelepasan karbon yang besar — pengurangan luas menyebabkan hilangnya stok karbon jangka panjang. 
-</p>
-            </div>
-          <iframe 
-    src="https://prgg29.projects.earthengine.app/view/mangrove"
-    width="100%"
-    height="700"
-    style="border:none;">
-</iframe>
-          <div class="box pt-4 d-flex gap-3 flex-md-row flex-column">
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500" style="background-color: #4169E1;">
-              <i class="fa-solid fa-folder-tree mb-3"></i>
-              <h4 class="mb-3 fw-bold">Ditampilkan Data Pemantauan Mangrove dari 2020 - 2025</h4>
-              <p class="lh-lg">Data citra satelit resolusi tinggi digunakan untuk memetakan dan memantau perubahan luasan kawasan mangrove di zona pesisir (buffer 0-2 km) selama periode 2020 hingga 2025. Data ini esensial untuk konservasi ekosistem pesisir.</p>
-            </div>
-            <div class="service p-4 shadow  text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700" style="background-color: #4169E1;">
-              <i class="fa-solid fa-user-tie mb-3"></i>
-              <h4 class="mb-3 fw-bold">Luas Mangrove Terdeteksi Sekitar 3171.41 km2</h4>
-              <p class="lh-lg">Berdasarkan hasil klasifikasi citra, total luasan hutan mangrove yang terdeteksi di area studi adalah sekitar 3.171,41 km². Angka ini menjadi dasar perhitungan untuk melacak deforestasi atau rehabilitasi mangrove.</p>
-            </div>
-            <div class="service p-4 shadow text-white rounded-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900" style="background-color: #4169E1;">
-              <i class="fa-solid fa-star mb-3"></i>
-              <h4 class="mb-3 fw-bold">Luas Mangrove Setiap Tahunnya Relatif Stabil</h4>
-              <p class="lh-lg">Selama periode pemantauan 2020-2025, luasan total kawasan mangrove di wilayah ini cenderung relatif stabil, meskipun mungkin terjadi perubahan di tingkat lokal karena faktor alam dan aktivitas manusia.</p>
-            </div>
-        </div>
-      </div>
-    </section>
-    <!-- Mangrove-->
-
-<!-- Hero Background Only -->
-<section class="hero overflow-hidden mt-3"
-class="terumbukarang" id="terumbukarang"
-  style="
-    background-image: url('assets/images/DESAIN\ PRGG.png');
-    background-size: cover;
-    background-position: center;
-    height: 500px; /* diperbesar agar proporsional */
-    display: flex;
-    align-items: center; /* vertikal rata tengah */
-  ">
-  <div class="container">
-        <div class="about-box text-center">
-          <h1 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Risiko perubahan iklim dan lingkungan bukan lagi perkiraan, melainkan kenyataan! </h1>
-          <h2 class="fw-bold mb-4 mt-5" data-aos="fade-up" data-aos-duration="1000">Kami menawarkan jasa pembuatan analisis pemantauan lingkungan sesuai permintaan untuk membantu organisasi Anda untuk mitigasi risiko dan keberlanjutan. <br />
-          Ambil langkah proaktif. Rencanakan masa depan berdasarkan data, bukan tebakan.</h2>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdVkHMy7P1iiiiAyNLUcqgdcHKH5x-t7bKP2LQGPQR3XoceEw/viewform?fbzx=-6961219111162297480" target="_blank" class="btn btn-danger">ORDER HERE</a>
-              </div>
-</section>
-<!-- End Hero -->
-
-    <!-- Footer -->
-    <section class="footer" style="background-color: #82C0C9;">
-      <div class="container">
-        <div class="footer-box">
-          <div class="row justify-content-between row-gap-4">
-            <div class="col col-md-4 col-12 text-black">
-              <div class="d-flex align-items-center gap-2">
-                <img src="./assets/icon/UGM-removebg-preview.png" alt="Logo" width="140" height="50" class="d-inline-block align-text-top rounded" />
-                <h2 class="fw-bold text-black">Dashboard Pemantauan Lingkungan</h2>
-              </div>
-              <p class="lh-lg opacity-75 m-0"></p>
-            </div>
-            <div class="col col-md-2 col-12 d-flex flex-column text-black gap-2">
-              <h4 class="fw-bold">Menu</h4>
-              <a href="#home" class="text-black text-decoration-none">Home</a>
-              <a href="#kenaikanmukaairlaut" class="text-black text-decoration-none">Kenaikan Muka Air Laut</a>
-              <a href="#suhupermukaanlaut" class="text-black text-decoration-none">Suhu Permukaan Laut</a>
-              <a href="#tumpahanminyak" class="text-black text-decoration-none">tumpahan Minyak</a>
-              <a href="#terumbukarang" class="text-black text-decoration-none">Terumbu Karang</a>
-              <a href="#mangrove" class="text-black text-decoration-none">Mangrove</a>
-            </div>
-            <div class="col col-md-4 col-12 d-flex flex-column text-black gap-2">
-              <h4 class="fw-bold">Contact Us</h4>
-              <p class="m-0 d-flex align-items-center gap-2">
-                <i class="fa-solid fa-envelope"></i>
-                prggtim29tahun2025@gmail.com
-              </p>
-              <p class="m-0 d-flex align-items-center gap-2">
-                <i class="fa-solid fa-phone"></i>
-                (0274)-367-503
-              </p>
-              <p class="m-0 d-flex align-items-center gap-2 lh-lg">
-                <i class="fa-solid fa-location-dot"></i>
-                Jl. Grafika Bulaksumur No.2, Sendowo, Sinduadi, Kec. Mlati, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281
-              </p>
-            </div>
+          <div class="col-12 col-md-5">
+            <h6 class="fw-bold">Contact Us</h6>
+            <p class="mb-0"><i class="fa-solid fa-envelope"></i> prggtim29tahun2025@gmail.com</p>
+            <p class="mb-0"><i class="fa-solid fa-phone"></i> (0274)-367-503</p>
+            <p class="mb-0"><i class="fa-solid fa-location-dot"></i> Jl. Grafika Bulaksumur No.2, Yogyakarta 55281</p>
           </div>
         </div>
 
-        <div class="copyright text-center text-black">
-          <p class="lh-lg">&copy; Copyright by <span class="fw-bold">PRGG 2025 KELOMPOK 29</span>, All Rights Reserved.</p>
-        </div>
+        <div class="text-center mt-3 small">&copy; PRGG 2025 KELOMPOK 29 — All Rights Reserved</div>
       </div>
-    </section>
-    <!-- Footer -->
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   </body>
 </html>
